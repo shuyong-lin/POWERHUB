@@ -1,5 +1,5 @@
 
-# CANable Makefile (from normaldotcom, modified by ElmüSoft)
+# CANable Makefile (from normaldotcom, modified by Elmï¿½Soft)
 # https://netcult.ch/elmue/CANable Firmware Update
 
 #######################################
@@ -20,6 +20,9 @@ ifeq ($(TARGET_MCU), STM32G431)
     MCU_SERIE = STM32G4xx
     CPU = cortex-m4
 else ifeq ($(TARGET_MCU), STM32G473)
+    MCU_SERIE = STM32G4xx
+    CPU = cortex-m4
+else ifeq ($(TARGET_MCU), STM32G474)
     MCU_SERIE = STM32G4xx
     CPU = cortex-m4
 else ifeq ($(TARGET_MCU), STM32G0B1)

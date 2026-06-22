@@ -76,6 +76,9 @@ bool system_init(void)
     #elif HSE_VALUE == 25000000 // 25 MHz quartz (Jhoinrch board)
         RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV5; // divide 25 MHz quartz clock / 5 --> 5 MHz
         RCC_OscInitStruct.PLL.PLLN = 64;            // multiply 5 MHz x 64 --> VCO frequency = 320 MHz
+    #elif HSE_VALUE == 24000000 // 24 MHz quartz (CoreMotionDual board)
+        RCC_OscInitStruct.PLL.PLLM = RCC_PLLM_DIV3; // divide 24 MHz quartz clock / 3 --> 8 MHz
+        RCC_OscInitStruct.PLL.PLLN = 40;            // multiply 8 MHz x 40 --> VCO frequency = 320 MHz
     #else
         #error "Quartz frequency not implemented"
     #endif
@@ -183,7 +186,7 @@ bool system_init(void)
 
 // --------------------------------------------
 
-// Configure Timer 3 as 1 µs timer (1 MHz). Timer 3 uses PCLK1 input.
+// Configure Timer 3 as 1 ï¿½s timer (1 MHz). Timer 3 uses PCLK1 input.
 // The FDCAN Rx and Tx Echo timestamps are based on this timer.
 // HAL_FDCAN_TimestampWraparoundCallback is required to extend this 16 bit timer to 32 bit when it wraps around every 65 ms.
 bool system_init_timestamp()
@@ -266,7 +269,7 @@ uint32_t system_get_can_clock()
     return canfd_clock;
 }
 
-// get timestamp with 1 µs precision
+// get timestamp with 1 ï¿½s precision
 // Timer3 must be used because this is written into FDCAN_TxEventFifoTypeDef.TxTimestamp and FDCAN_RxHeaderTypeDef.RxTimestamp
 // Timer3 provides only the low 16 bit. The high 16 bit come from the wrap around callback.
 uint32_t system_get_timestamp()
@@ -376,7 +379,7 @@ eFeedback system_set_option_bytes(eOptionBytes e_Option)
 
     // IMPORTANT:
     // If previous errors are not cleared, HAL_FLASHEx_OBProgram() will fail.
-    // This was wrong in all legacy firmware versions. (fixed by ElmüSoft)
+    // This was wrong in all legacy firmware versions. (fixed by Elmï¿½Soft)
     // The programmers did not even notice this bug because of a non-existent error handling (sloppy code).
     __HAL_FLASH_CLEAR_FLAG(FLASH_FLAG_ALL_ERRORS);
 
