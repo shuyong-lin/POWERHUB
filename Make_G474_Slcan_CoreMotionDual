@@ -1,5 +1,5 @@
 
-# CANable Candlelight Makefile
+# CANable Slcan Makefile
 
 ######################################
 #
@@ -7,13 +7,13 @@
 # from Oleksii which has a 8 MHz quartz
 #
 # Compile this by typing:
-# make -s -f Make_G474_Candle_CoreMotionDual
+# make -s -f Make_G473_Slcan_OleksiiDual
 #
 #######################################
 
 # TARGET_BOARD and TARGET_MCU: maximum 24 characters!
 
-TARGET_FIRMWARE = Candlelight
+TARGET_FIRMWARE = Slcan
 TARGET_BOARD    = CoreMotionDual
 TARGET_MCU      = STM32G474
 
