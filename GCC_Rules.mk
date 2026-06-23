@@ -25,6 +25,9 @@ else ifeq ($(TARGET_MCU), STM32G473)
 else ifeq ($(TARGET_MCU), STM32G474)
     MCU_SERIE = STM32G4xx
     CPU = cortex-m4
+else ifeq ($(TARGET_MCU), N32H474)
+    MCU_SERIE = N32H474
+    CPU = cortex-m4
 else ifeq ($(TARGET_MCU), STM32G0B1)
     MCU_SERIE = STM32G0xx
     CPU = cortex-m0plus
