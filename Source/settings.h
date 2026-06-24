@@ -177,7 +177,6 @@ typedef enum // sent as 8 bit
     #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
     // -------------------
     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
-    
 #elif defined(PowerHubDual)
 
     // Oleksii puts a 8 MHz quartz on the dual channel board
@@ -204,7 +203,32 @@ typedef enum // sent as 8 bit
     #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
     // -------------------
     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
-    
+#elif defined(CoreMotionPlus)
+
+    // Oleksii puts a 24 MHz quartz on the dual channel board
+    // The board has 3 CAN connectors and creates 3 Candlelight USB interfaces.
+    #define CHANNEL_COUNT       3
+    // -------------------      Channel 1:               Channel 2:
+    #define CAN_INTERFACES      FDCAN1,                  FDCAN2
+    #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
+    #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
+    #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
+    // -------------------
+    #define LED_TX_PINS         GPIO_PIN_5,              GPIO_PIN_3 
+    #define LED_TX_PORTS        GPIOA,                   GPIOA
+    #define LED_RX_PINS         GPIO_PIN_6,              GPIO_PIN_4 
+    #define LED_RX_PORTS        GPIOA,                   GPIOA
+    // -------------------
+    #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
+    #define TERMINATOR_PORTS    GPIOB,                   GPIOB    
+    // ---------------------------------------------------------
+    #define LED_MODE            GPIO_MODE_OUTPUT_PP
+    #define LED_ON              GPIO_PIN_SET             // The LED's cathode is connected to ground
+    #define LED_OFF             GPIO_PIN_RESET
+    // -------------------
+    #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
+    // -------------------
+    #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
 
 #elif defined(WeActStudioV1)
 
@@ -310,7 +334,3 @@ typedef enum // sent as 8 bit
 #ifndef USBD_SELF_POWERED
     #define USBD_SELF_POWERED   0x00
 #endif
-
-
-
-
