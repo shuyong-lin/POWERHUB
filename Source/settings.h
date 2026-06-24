@@ -206,9 +206,9 @@ typedef enum // sent as 8 bit
 #elif defined(CoreMotionPlus)
 
     // Oleksii puts a 24 MHz quartz on the dual channel board
-    // The board has 3 CAN connectors and creates 3 Candlelight USB interfaces.
-    #define CDC_VCP_COUNT       1
-    #define CHANNEL_COUNT       2
+    // The board has 2 CAN connectors and creates 2 Candlelight USB interfaces.
+    #define CDC_VCP_COUNT       0
+    #define CHANNEL_COUNT       3
     // -------------------      Channel 1:               Channel 2:
     #define CAN_INTERFACES      FDCAN1,                  FDCAN2
     #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
