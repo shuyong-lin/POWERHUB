@@ -690,7 +690,7 @@ static uint8_t  USBD_CDC_EP0_RxReady()
   * @param  pbuff: Tx Buffer
   * @retval status
   */
-uint8_t  USBD_CDC1_SetTxBuffer(uint8_t *pbuff, uint16_t length)
+uint8_t  USBD_CDC_SetTxBuffer(uint8_t *pbuff, uint16_t length)
 {
   CDC_Handle.TxBuffer = pbuff;
   CDC_Handle.TxLength = length;
@@ -701,7 +701,7 @@ uint8_t  USBD_CDC1_SetTxBuffer(uint8_t *pbuff, uint16_t length)
   * @param  pbuff: Rx Buffer
   * @retval status
   */
-uint8_t USBD_CDC1_SetRxBuffer(uint8_t  *pbuff)
+uint8_t USBD_CDC_SetRxBuffer(uint8_t  *pbuff)
 {
   CDC_Handle.RxBuffer = pbuff;
   return USBD_OK;
@@ -711,7 +711,7 @@ uint8_t USBD_CDC1_SetRxBuffer(uint8_t  *pbuff)
   * @brief  Transmit packet on IN endpoint
   * @retval status
   */
-uint8_t USBD_CDC1_TransmitPacket()
+uint8_t USBD_CDC_TransmitPacket()
 {
   if (!Class_InitDone)
       return USBD_FAIL;
@@ -734,7 +734,7 @@ uint8_t USBD_CDC1_TransmitPacket()
   * @brief  prepare OUT Endpoint for reception
   * @retval status
   */
-uint8_t USBD_CDC1_ReceivePacket()
+uint8_t USBD_CDC_ReceivePacket()
 {
   // Suspend or Resume USB Out process
   if (Class_InitDone)

@@ -207,7 +207,8 @@ typedef enum // sent as 8 bit
 
     // Oleksii puts a 24 MHz quartz on the dual channel board
     // The board has 3 CAN connectors and creates 3 Candlelight USB interfaces.
-    #define CHANNEL_COUNT       3
+    #define CDC_VCP_COUNT       1
+    #define CHANNEL_COUNT       2
     // -------------------      Channel 1:               Channel 2:
     #define CAN_INTERFACES      FDCAN1,                  FDCAN2
     #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
