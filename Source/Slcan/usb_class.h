@@ -98,10 +98,10 @@ typedef struct
 }
 USBD_CDC_HandleTypeDef;
 
-uint8_t  USBD_CDC_SetTxBuffer(uint8_t *pbuff, uint16_t length);
-uint8_t  USBD_CDC_SetRxBuffer(uint8_t *pbuff);
-uint8_t  USBD_CDC_ReceivePacket();
-uint8_t  USBD_CDC_TransmitPacket();
+uint8_t  USBD_CDC1_SetTxBuffer(uint8_t *pbuff, uint16_t length);
+uint8_t  USBD_CDC1_SetRxBuffer(uint8_t *pbuff);
+uint8_t  USBD_CDC1_ReceivePacket();
+uint8_t  USBD_CDC1_TransmitPacket();
 
 bool               USBD_SetupStageRequest();
 USBD_StatusTypeDef USBD_ConfigureEndpoints();

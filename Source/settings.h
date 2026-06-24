@@ -18,7 +18,7 @@
 
 // ============================================================================================
 // The following enums are used for Slcan and Candlelight
-
+// ============================================================================================ 
 // If command feedback is enabled these error codes are sent to the host.
 // This enum is used for Slcan and for Candlelight.
 // Slcan sends errors as "#1\r" which means FBK_InvalidCommand.
@@ -159,6 +159,33 @@ typedef enum // sent as 8 bit
     // -------------------      Channel 1:               Channel 2:
     #define CAN_INTERFACES      FDCAN1,                  FDCAN2
     #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
+    #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
+    #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
+    // -------------------
+    #define LED_TX_PINS         GPIO_PIN_5,              GPIO_PIN_3 
+    #define LED_TX_PORTS        GPIOA,                   GPIOA
+    #define LED_RX_PINS         GPIO_PIN_6,              GPIO_PIN_4 
+    #define LED_RX_PORTS        GPIOA,                   GPIOA
+    // -------------------
+    #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
+    #define TERMINATOR_PORTS    GPIOB,                   GPIOB    
+    // ---------------------------------------------------------
+    #define LED_MODE            GPIO_MODE_OUTPUT_PP
+    #define LED_ON              GPIO_PIN_SET             // The LED's cathode is connected to ground
+    #define LED_OFF             GPIO_PIN_RESET
+    // -------------------
+    #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
+    // -------------------
+    #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
+    
+#elif defined(PowerHubDual)
+
+    // Oleksii puts a 8 MHz quartz on the dual channel board
+    // The board has 2 CAN connectors and creates 2 Candlelight USB interfaces.
+    #define CHANNEL_COUNT       2
+    // -------------------      Channel 1:               Channel 2:
+    #define CAN_INTERFACES      FDCAN1,                  FDCAN2
+    #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_12 | GPIO_PIN_13 // CANFD Tx, Rx pins
     #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
     #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
     // -------------------

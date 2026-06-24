@@ -7,7 +7,7 @@
 # from Oleksii which has a 8 MHz quartz
 #
 # Compile this by typing:
-# make -s -f Make_G473_Slcan_OleksiiDual
+# make -s -f Make_G473_Slcan_CoreMotionDual
 #
 #######################################
 
@@ -18,7 +18,7 @@ TARGET_BOARD    = CoreMotionDual
 TARGET_MCU      = STM32G474
 
 # This board has a 24 MHz quartz.
-#QUARTZ_FREQU    = 0
-QUARTZ_FREQU    = 24000000
+QUARTZ_FREQU    = 0
+#QUARTZ_FREQU    = 24000000
 
 include GCC_Rules.mk
