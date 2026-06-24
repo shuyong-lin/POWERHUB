@@ -1,0 +1,24 @@
+
+# CANable Candlelight Makefile
+
+######################################
+#
+# This makefile compiles for the dual channel CANable board 
+# from Oleksii which has a 8 MHz quartz
+#
+# Compile this by typing:
+# make -s -f Make_G474_Candle_CoreMotionDual
+#
+#######################################
+
+# TARGET_BOARD and TARGET_MCU: maximum 24 characters!
+
+TARGET_FIRMWARE = CandlelightCDC
+TARGET_BOARD    = CoreMotionPlus
+TARGET_MCU      = STM32G474
+
+# This board has a 24 MHz quartz.
+#QUARTZ_FREQU    = 0
+QUARTZ_FREQU    = 24000000
+
+include GCC_Rules.mk
