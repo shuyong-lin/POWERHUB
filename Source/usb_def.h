@@ -37,6 +37,8 @@ extern "C" {
     #define USBD_SUPPORT_USER_STRING_DESC                  1U
 #elif defined(Slcan)
     #define USBD_SUPPORT_USER_STRING_DESC                  0U    
+#elif defined(CandlelightCDC)
+    #define USBD_SUPPORT_USER_STRING_DESC                  1U
 #else
     #error "TARGET_FIRMWARE not defined"
 #endif 
