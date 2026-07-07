@@ -1,0 +1,36 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "STM32 OpenOCD Debug",
+            "type": "cortex-debug",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "armToolchainPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin",
+            "gdbPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin\\arm-none-eabi-gdb.exe",
+            "interface": "swd",
+            "executable": ".\\Build_STM32G474_Candlelight_PowerHubDual\\STM32G474_Candlelight2.5_PowerHubDual_0x260618.elf",
+            "svdFile": ".\\STM32\\CMSIS\\STM32G474xx.svd",
+            "servertype": "openocd",
+            // "serverArgs": [
+            //     "-c", "adapter speed 1000"
+            // ],
+            "serverpath": "C:\\msys64\\ucrt64\\bin\\openocd.exe",
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32g4x.cfg"
+            ],
+            "runToEntryPoint": "main",
+            "postLaunchCommands": [
+                "monitor reset halt"
+            ],
+            // "indexCachePath": "${workspaceFolder}/.vscode/.cortex-debug",
+
+            // "connectUnderReset": true,
+            "showDevDebugOutput": "raw",
+        }
+    ]
+}
