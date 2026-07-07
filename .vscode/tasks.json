@@ -1,0 +1,46 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "-s", "-f", "${workspaceFolder}/Make_G474_Candle_PowerHubDual",
+            ],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                // "panel": "shared",
+                // "showReuseMessage": true,
+                // "clear": false
+            },
+            "problemMatcher": ["$gcc"],
+        },
+        {
+            "label": "Flash Target",
+            "type": "process",
+            "command": "C:\\msys64\\ucrt64\\bin\\openocd.exe",
+            "args":[
+                "-f", "interface/stlink.cfg",
+                "-f", "target/stm32g4x.cfg",
+                "-c", "program ./Build_STM32G474_Candlelight_PowerHubDual/STM32G474_Candlelight2.5_PowerHubDual_0x260618.hex verify reset exit"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                // "panel": "shared",
+                // "showReuseMessage": true,
+                // "clear": false
+            },
+        }
+    ]
+}

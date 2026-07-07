@@ -64,7 +64,8 @@ ifeq ($(OS), Windows_NT)
     # On Windows mkdir is already implemented in the console.
     # But Windows mkdir takes other parameters than Linux mkdir.
     # Simply rename the file mkdir.exe in your MingW installation folder into mmkdir.exe
-    MKDIR = mmkdir -p
+#     MKDIR = mmkdir -p
+    MKDIR = mkdir -p
 else
     # Linux
     MKDIR = mkdir -p
