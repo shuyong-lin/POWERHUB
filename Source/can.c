@@ -178,7 +178,7 @@ eFeedback can_open(uint8_t channel, uint32_t mode)
 
     inst->nom_bit_len_ns  = 1 + inst->bitrate_nominal.Seg1 + inst->bitrate_nominal.Seg2; // time quantums
     inst->nom_bit_len_ns *= inst->bitrate_nominal.Brp;     // clock prescaler
-    inst->nom_bit_len_ns *= 1000;                          // µs -> ns
+    inst->nom_bit_len_ns *= 1000;                          // ï¿½s -> ns
     inst->nom_bit_len_ns /= clock_MHz;
 
     inst->bitrate_printed_once = false;
@@ -335,7 +335,7 @@ void can_process(uint8_t channel, uint32_t tick_now)
 
     // -------------------------- Tx Event ------------------------------------
 
-    // This was competely wrong in the original Candlelight firmware (fixed by Elmüsoft).
+    // This was competely wrong in the original Candlelight firmware (fixed by Elmï¿½soft).
     // Instead of sending a Tx Event to the host in the moment when the processor has really sent the packet to the CAN bus
     // they have sent a fake event immediately after dispatching the packet, no matter if it really was sent or not.
     FDCAN_TxEventFifoTypeDef tx_event;
@@ -540,7 +540,7 @@ void can_timer_100ms()
 
         if (inst->busload_counter >= inst->busload_interval) // interval elapsed
         {
-            // This function is called every 100 ms = 100 * 1000 µs --> divide by 100000
+            // This function is called every 100 ms = 100 * 1000 ï¿½s --> divide by 100000
             uint32_t rate_us_ppm = inst->bit_count_total * inst->nom_bit_len_ns / 100000;
             uint32_t busload_ppm = rate_us_ppm * STUFFING_FACTOR / inst->busload_interval;
 

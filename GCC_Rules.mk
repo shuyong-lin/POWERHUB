@@ -168,7 +168,7 @@ $(FIRM_BUILD_DIR):
 #######################################
 
 # list of common source files
-SOURCES = main.c system_$(MCU_SERIE).c system.c interrupts.c can.c error.c led.c dfu.c utils.c usb_ctrlreq.c usb_ioreq.c usb_core.c usb_lowlevel.c 
+SOURCES = main.c system_$(MCU_SERIE).c system.c interrupts.c can.c error.c led.c ws2815.c adc.c dfu.c utils.c usb_ctrlreq.c usb_ioreq.c usb_core.c usb_lowlevel.c 
 
 # list of user program objects
 OBJECTS = $(addprefix $(BUILD_DIR)/,$(notdir $(SOURCES:.c=.o)))

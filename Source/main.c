@@ -8,6 +8,7 @@
 #include "can.h"
 #include "led.h"
 #include "dfu.h"
+#include "adc.h"
 #include "control.h"
 #include "system.h"
 #include "utils.h"
@@ -24,7 +25,8 @@ int main(void)
 {
     if (!system_init() || // init HAL and configure system clock
         !led_init()    || // turn ON Rx + Tx LED
-        !USBD_Init())
+        !USBD_Init()   ||
+        !adc_init())
     {
         // if System or USB initialization fails --> Rx + Tx LED are permanently ON
         while (true) {}
@@ -67,6 +69,7 @@ int main(void)
         if (tick_now - tick_last >= 100)
         {
             tick_last = tick_now;            
+            adc_timer_100ms(tick_now);
             can_timer_100ms();
             dfu_timer_100ms(tick_now);
         }

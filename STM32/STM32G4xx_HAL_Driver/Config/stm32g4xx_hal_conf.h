@@ -43,8 +43,8 @@
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_TIM_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
-
-// #define HAL_ADC_MODULE_ENABLED   
+#define HAL_ADC_MODULE_ENABLED
+   
 // #define HAL_COMP_MODULE_ENABLED   
 // #define HAL_CORDIC_MODULE_ENABLED   
 // #define HAL_CRC_MODULE_ENABLED   
@@ -186,7 +186,7 @@ The real value may vary depending on the variations in voltage and temperature.*
 #define INSTRUCTION_CACHE_ENABLE     1U
 #define DATA_CACHE_ENABLE            0U
 
-// ------------------ Added by ElmüSoft ----------------------
+// ------------------ Added by Elmï¿½Soft ----------------------
 
 #define PWR_REGULATOR_VOLT_HIGHEST   PWR_REGULATOR_VOLTAGE_SCALE1_BOOST // See system.c
 

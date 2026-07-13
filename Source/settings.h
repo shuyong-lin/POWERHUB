@@ -177,7 +177,6 @@ typedef enum // sent as 8 bit
     #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
     // -------------------
     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
-    
 #elif defined(PowerHubDual)
 
     // Oleksii puts a 8 MHz quartz on the dual channel board
@@ -205,6 +204,23 @@ typedef enum // sent as 8 bit
     // -------------------
     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
     
+    // The third LED is used by the WeAct firmware to show that the device is in firmware update mode.
+    // But WeActStudio uses their own proprietary firmware updater which is CRAP and is erased when uploading this firmware.
+    // The ElmueSoft firmware uses the third LED as Power LED to show that the firmware is running (Off in DFU mode)
+    #define LED_PWR_PIN         GPIO_PIN_2 // red
+    #define LED_PWR_PORT        GPIOA    
+
+    #define LED_WS2815_ENABLE  1
+    #define LED_WS2815_NUMBER  CHANNEL_COUNT
+    // #define LED_WS2815_MODE    0
+    // #define LED_WS2815_PIN     GPIO_PIN_15
+    // #define LED_WS2815_PORT    GPIOC
+    #define LED_WS2815_MODE    1
+    #define LED_WS2815_PIN     GPIO_PIN_7
+    #define LED_WS2815_PORT    GPIOA
+    #define LED_WS2815_TIM     TIM3
+    #define LED_WS2815_CHANNEL TIM_CHANNEL_2
+    #define LED_WS2815_AF      GPIO_AF2_TIM3
 
 #elif defined(WeActStudioV1)
 
@@ -304,13 +320,32 @@ typedef enum // sent as 8 bit
     #define CAN_ALTERNATES      GPIO_AF9_FDCAN1         // switch pin 8,9 multiplexer to CAN module
 #endif
 
+// Optional WS2815 RGB LED support. Mode 0 = GPIO bit-bang, Mode 1 = Timer+DMA.
+#ifndef LED_WS2815_ENABLE
+    #define LED_WS2815_ENABLE   0
+#endif
+#ifndef LED_WS2815_MODE
+    #define LED_WS2815_MODE     0
+#endif
+#ifndef LED_WS2815_PIN
+    #define LED_WS2815_PIN      -1
+#endif
+#ifndef LED_WS2815_PORT
+    #define LED_WS2815_PORT     GPIOA
+#endif
+#ifndef LED_WS2815_TIM
+    #define LED_WS2815_TIM      TIM1
+#endif
+#ifndef LED_WS2815_CHANNEL
+    #define LED_WS2815_CHANNEL  TIM_CHANNEL_1
+#endif
+#ifndef LED_WS2815_AF
+    #define LED_WS2815_AF       GPIO_AF6_TIM1
+#endif
+
 // 0x00 = adapter power comes over USB cable
 // 0x40 = adapter has own power supply (flag 'Self Powered' in bmAttributes in Configuration descriptor)
 // 0xXX = any other value is invalid!
 #ifndef USBD_SELF_POWERED
     #define USBD_SELF_POWERED   0x00
 #endif
-
-
-
-

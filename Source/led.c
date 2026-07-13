@@ -8,6 +8,7 @@
 #include "led.h"
 #include "can.h"
 #include "error.h"
+#include "ws2815.h"
 
 // Duration in ms of a short flash when a CAN packet was received / sent
 // The LEDs are very bright. If the ON time is too long it seems as if it does not go off.
@@ -41,6 +42,10 @@ bool led_init()
     GPIO_InitStruct.Pull      = GPIO_NOPULL;
     GPIO_InitStruct.Speed     = GPIO_SPEED_FREQ_LOW;
     GPIO_InitStruct.Alternate = 0;
+
+    #if (LED_WS2815_ENABLE > 0)
+        ws2815_init();
+    #endif
 
     for (int C=0; C<CHANNEL_COUNT; C++)
     {
@@ -168,7 +173,8 @@ void led_flash_RX(uint8_t channel)
 void led_process(uint8_t channel, uint32_t tick_now)
 {
     led_class* inst = &led_inst[channel];
-    
+    // ws2815_update();
+
     if (inst->identify) // highest priority
     {
         // Blink pattern: Both off, Rx ON, Both off, Tx ON, ...
@@ -226,17 +232,30 @@ void led_process(uint8_t channel, uint32_t tick_now)
 
 void led_set_Rx(uint8_t channel, bool status)
 {
+#if (LED_WS2815_ENABLE > 0)
+    ws2815_set_rx(channel, status);
+#else
     HAL_GPIO_WritePin(SET_LedRxPorts[channel], SET_LedRxPins[channel], status ? LED_ON : LED_OFF);
+#endif
 }
 
 void led_set_Tx(uint8_t channel, bool status)
 {
+#if (LED_WS2815_ENABLE > 0)
+    ws2815_set_tx(channel, status);
+#else
     HAL_GPIO_WritePin(SET_LedTxPorts[channel], SET_LedTxPins[channel], status ? LED_ON : LED_OFF);
+#endif
 }
 
 #ifdef LED_PWR_PIN
 void led_set_Pwr(bool status)
 {
+#if (LED_WS2815_ENABLE > 0)
+    ws2815_set_pwr(status);
+#else
     HAL_GPIO_WritePin(LED_PWR_PORT, LED_PWR_PIN, status ? LED_ON : LED_OFF);
+#endif
 }
+
 #endif
