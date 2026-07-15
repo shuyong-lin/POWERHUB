@@ -40,7 +40,7 @@ using namespace CANable;
 
 // true  --> run Candlelight demo (send and receive CAN packets)
 // false --> run DFU demo (switch a device in Candlelight mode into DFU mode, fails if already in DFU mode)
-bool CANDLELIGHT_DEMO = true; 
+bool CANDLELIGHT_DEMO = true;
 
 // true  --> only packets with 11 bit CAN ID 0x7E8 are sent to the host.
 // false --> all packets are sent to the host
@@ -190,7 +190,7 @@ void CandlelightDemo()
         gk_Info.mk_DeviceVersion.icount + 1 >= 2 && 
         gk_Info.mu8_Channel == 0)
     {
-        // Set filter Nº 08 to forward packets with CAN ID 0x7E5 from channel 0 to channel 1.
+        // Set filter N?08 to forward packets with CAN ID 0x7E5 from channel 0 to channel 1.
         u32_Error = gi_Candle.SetBridgeFilter(8, 1, true, false, false, 0x7E5, 0x7FF);
         if (u32_Error)
             OsLibrary::PrintConsole(RED, "Error setting bridge filter: %s\n", gi_Candle.FormatLastError(u32_Error).c_str());

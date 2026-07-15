@@ -83,14 +83,15 @@ static void ws2815_set_pixel_gpio(uint8_t channel)
 #else
 
 #define WS2815_TIM_PSC      0U
-#define WS2815_TIM_PERIOD   89U // 1.25us / (1 / (TIM_CLK / (TIM_PSC + 1))) - 1
-#define WS2815_T1_TIMCCR    60U // WS2815_TIM_PERIOD * 0.8
-#define WS2815_T0_TIMCCR    30U // WS2815_TIM_PERIOD * 0.2
+#define WS2815_TIM_PERIOD   199U // 1.25us / (1 / (TIM_CLK / (TIM_PSC + 1))) - 1
+#define WS2815_T1_TIMCCR    136U // WS2815_TIM_PERIOD * 0.8
+#define WS2815_T0_TIMCCR    40U // WS2815_TIM_PERIOD * 0.2
 #define WS2815_RESET_CYCLES 80U // 100us / code cycles(1.25us) = 80 cycles
 
 DMA_HandleTypeDef hdma_tim3_ch2;
 static TIM_HandleTypeDef ws2815_tim = {0};
 static uint16_t ws2815_dma_buffer[WS2815_RESET_CYCLES + 24*LED_WS2815_NUMBER] = {0};
+// static uint16_t ws2815_dma_buffer2[WS2815_RESET_CYCLES + 24*LED_WS2815_NUMBER] = {0};
 
 
 void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
@@ -108,12 +109,12 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
     /* TIM3_CH2 Init */
     hdma_tim3_ch2.Instance = DMA1_Channel1;
     hdma_tim3_ch2.Init.Request = DMA_REQUEST_TIM3_CH2;
-    hdma_tim3_ch2.Init.Direction = DMA_PERIPH_TO_MEMORY;
+    hdma_tim3_ch2.Init.Direction = DMA_MEMORY_TO_PERIPH;
     hdma_tim3_ch2.Init.PeriphInc = DMA_PINC_DISABLE;
     hdma_tim3_ch2.Init.MemInc = DMA_MINC_ENABLE;
     hdma_tim3_ch2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
     hdma_tim3_ch2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    hdma_tim3_ch2.Init.Mode = DMA_NORMAL;
+    hdma_tim3_ch2.Init.Mode = DMA_CIRCULAR;
     hdma_tim3_ch2.Init.Priority = DMA_PRIORITY_HIGH;
     if (HAL_DMA_Init(&hdma_tim3_ch2) != HAL_OK)
     {
@@ -234,7 +235,7 @@ void ws2815_init(void)
     HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
     HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
-    TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+    // TIM_ClockConfigTypeDef sClockSourceConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
     TIM_OC_InitTypeDef sConfigOC = {0};
 
@@ -245,22 +246,23 @@ void ws2815_init(void)
     ws2815_tim.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
     ws2815_tim.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
     ws2815_tim.Init.RepetitionCounter = 0;
-    if (HAL_TIM_Base_Init(&ws2815_tim) != HAL_OK)
-    {
-        __disable_irq();
-        while (1)
-        {
-        }
-    }
+    // if (HAL_TIM_Base_Init(&ws2815_tim) != HAL_OK)
+    // {
+    //     __disable_irq();
+    //     while (1)
+    //     {
+    //     }
+    // }
 
-    sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-    if (HAL_TIM_ConfigClockSource(&ws2815_tim, &sClockSourceConfig) != HAL_OK)
-    {
-        __disable_irq();
-        while (1)
-        {
-        }
-    }
+    // sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+    // if (HAL_TIM_ConfigClockSource(&ws2815_tim, &sClockSourceConfig) != HAL_OK)
+    // {
+    //     __disable_irq();
+    //     while (1)
+    //     {
+    //     }
+    // }
+
     if(HAL_TIM_PWM_Init(&ws2815_tim) != HAL_OK)
     {
         __disable_irq();
@@ -333,7 +335,6 @@ void ws2815_set_tx(uint8_t channel, bool status)
     ws2815_inst[channel].green = status ? 0x0F : 0x00;
     ws2815_set_pixel(channel);
     ws2815_update();
-
     
 }
 
@@ -346,7 +347,6 @@ void ws2815_set_pwr(bool status)
 
 void ws2815_update(void)
 {
-    TIM3->CCR2 = 40; // Stop PWM output
     if (ws2815_inst_changed)
     // if (1)
     {
@@ -361,8 +361,8 @@ void ws2815_update(void)
             ws2815_send_byte_gpio(ws2815_inst[i].blue);
         }
 #else
-        HAL_TIM_PWM_Stop(&ws2815_tim, LED_WS2815_CHANNEL);
-        HAL_TIM_PWM_Start_DMA(&ws2815_tim, LED_WS2815_CHANNEL, ws2815_dma_buffer, sizeof(ws2815_dma_buffer) / sizeof(ws2815_dma_buffer[0]));
+        HAL_TIM_PWM_Stop_DMA(&ws2815_tim, LED_WS2815_CHANNEL);
+        HAL_TIM_PWM_Start_DMA(&ws2815_tim, LED_WS2815_CHANNEL, (uint32_t *)ws2815_dma_buffer, sizeof(ws2815_dma_buffer) / sizeof(ws2815_dma_buffer[0]));
 #endif
     }
 }

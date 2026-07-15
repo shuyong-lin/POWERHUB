@@ -103,7 +103,7 @@ uint32_t Candlelight::Open(kUsbDevice* pk_Device)
     mi_Details.push_back(kDetail("Device Path",        pk_Device->ms_DevicePath));
     mi_Details.push_back(kDetail("USB Vendor",         cUtils::Format("\"%s\"", mpk_Info->ms_Vendor   .c_str())));   
     mi_Details.push_back(kDetail("USB Product",        cUtils::Format("\"%s\"", mpk_Info->ms_Product  .c_str())));  
-    mi_Details.push_back(kDetail("USB Serial  Nº",     cUtils::Format("\"%s\"", mpk_Info->ms_Serial   .c_str())));   
+    mi_Details.push_back(kDetail("USB Serial Name",     cUtils::Format("\"%s\"", mpk_Info->ms_Serial   .c_str())));   
     mi_Details.push_back(kDetail("USB Interface Name", cUtils::Format("\"%s\"", mpk_Info->ms_Interface.c_str())));
     mi_Details.push_back(kDetail("USB Vendor  ID",     cUtils::Format("%04X",   mpk_Info->mk_DeviceDescr .idVendor)));
     mi_Details.push_back(kDetail("USB Product ID",     cUtils::Format("%04X",   mpk_Info->mk_DeviceDescr .idProduct)));
@@ -298,7 +298,7 @@ uint32_t Candlelight::AddHostFilter(bool b_29bit, uint32_t u32_Filter, uint32_t 
 
 // STEP 5)  (optional)
 // set / clear one of 20 bridge filters
-// b_Enable = false and Index == 0x13  --> clear only bridge filter Nº 0x13
+// b_Enable = false and Index == 0x13  --> clear only bridge filter N?0x13
 // b_Enable = false and Index == 0xFF  --> clear all bridge filters
 // b_Enable = true and b_Block = true  --> set block filter
 // b_Enable = true and b_Block = false --> set pass filter
@@ -760,7 +760,7 @@ uint32_t Candlelight::CtrlTransfer(eDirection e_Dir, uint8_t u8_Request, uint16_
 // =======================================================================================================================
 
 // Formats a timestamp with 1 µs precision
-// returns "HH:MM:SS.mmm.µµµ"
+// returns "HH:MM:SS.mmm.µµ?
 // pk_Header may contain a timestamp if GS_DevFlagTimestamp is set --> mb_McuTimestamp = true
 // otherwise use s64_OsTimestamp which comes from GetOsTimestamp() at packet reception
 string Candlelight::FormatTimestamp(kHeader* pk_Header, int64_t s64_OsTimestamp)

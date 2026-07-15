@@ -194,7 +194,7 @@ typedef enum // sent as 8 bit
     #define LED_RX_PORTS        GPIOA,                   GPIOA
     // -------------------
     #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
-    #define TERMINATOR_PORTS    GPIOB,                   GPIOB    
+    #define TERMINATOR_PORTS    GPIOB,                   GPIOB
     // ---------------------------------------------------------
     #define LED_MODE            GPIO_MODE_OUTPUT_PP
     #define LED_ON              GPIO_PIN_SET             // The LED's cathode is connected to ground
