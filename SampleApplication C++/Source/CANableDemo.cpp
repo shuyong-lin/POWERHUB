@@ -261,7 +261,7 @@ void CandlelightDemo()
         int64_t s64_Now = gi_Candle.GetOsTimestamp();
 
         // Send the Tx frame every 2 seconds (= 2000000 µs)
-        if (s64_Now - s64_LastStamp >= 2000000)
+        if (s64_Now - s64_LastStamp >= 1)
         {
             s64_LastStamp = s64_Now;
 

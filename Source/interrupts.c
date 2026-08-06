@@ -10,7 +10,7 @@
 #include "led.h"
 
 extern PCD_HandleTypeDef PCD_Handle;
-#if (LED_WS2815_MODE == 0)
+#if (LED_WS2815_MODE == 0 || LED_WS2815_ENABLE == 0) 
 
 #else
 extern DMA_HandleTypeDef hdma_tim3_ch2;
@@ -111,7 +111,7 @@ void TIM16_FDCAN_IT0_IRQHandler(void)
     HAL_FDCAN_IRQHandler(can_get_handle(0));
 }
 
-#if (LED_WS2815_MODE == 0)
+#if (LED_WS2815_MODE == 0 || LED_WS2815_ENABLE == 0) 
 #else
 //This function handles DMA1 channel1 global interrupt for STM32G4xx.
 void DMA1_Channel1_IRQHandler(void)
