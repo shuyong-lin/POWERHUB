@@ -34,7 +34,7 @@
 #define GREEN   (FOREGROUND_GREEN)
 
 // up to 30 USB IN packets can be stoed in the Rx FIFO
-#define RX_FIFO_MAX_COUNT   30  
+#define RX_FIFO_MAX_COUNT   3000  
 
 namespace CANable
 {

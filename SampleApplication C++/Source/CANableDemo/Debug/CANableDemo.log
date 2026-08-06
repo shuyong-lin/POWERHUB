@@ -1,3 +1,2 @@
-﻿  CANableDemo.cpp
-E:\hubtest\SampleApplication C++\Source\CANableDemo.cpp(539,28): warning C4267: “初始化”: 从“size_t”转换到“unsigned short”，可能丢失数据
+﻿  Candlelight.cpp
   CANableDemo.vcxproj -> E:\hubtest\SampleApplication C++\Source\Output\CANableDemo.exe

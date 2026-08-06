@@ -188,9 +188,9 @@ typedef enum // sent as 8 bit
     #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
     #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
     // -------------------
-    #define LED_TX_PINS         GPIO_PIN_10,              GPIO_PIN_3
+    #define LED_TX_PINS         GPIO_PIN_10,              GPIO_PIN_3 //Blue
     #define LED_TX_PORTS        GPIOA,                   GPIOB
-    #define LED_RX_PINS         GPIO_PIN_15,              GPIO_PIN_4
+    #define LED_RX_PINS         GPIO_PIN_15,              GPIO_PIN_4 //Green
     #define LED_RX_PORTS        GPIOA,                   GPIOB
     // -------------------
     #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
@@ -208,7 +208,7 @@ typedef enum // sent as 8 bit
     // But WeActStudio uses their own proprietary firmware updater which is CRAP and is erased when uploading this firmware.
     // The ElmueSoft firmware uses the third LED as Power LED to show that the firmware is running (Off in DFU mode)
     #define LED_PWR_PIN         GPIO_PIN_2 // red
-    #define LED_PWR_PORT        GPIOA    
+    #define LED_PWR_PORT        GPIOA
 
     #define LED_WS2815_ENABLE  0
     #define LED_WS2815_NUMBER  CHANNEL_COUNT

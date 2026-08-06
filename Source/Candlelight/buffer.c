@@ -20,11 +20,11 @@
 // ----- Globals
 extern eUserFlags GLB_UserFlags[CHANNEL_COUNT];
 
-// Global flag that enables the new ElmüSoft protocol for maximum USB throughput (Candlelight only).
-// It is not possible to enable the ElmüSoft protocol only for an individual channel,
-// because ElmüSoft uses different USB interfaces while Legacy routes all traffic through the first USB interface.
+// Global flag that enables the new Elmï¿½Soft protocol for maximum USB throughput (Candlelight only).
+// It is not possible to enable the Elmï¿½Soft protocol only for an individual channel,
+// because Elmï¿½Soft uses different USB interfaces while Legacy routes all traffic through the first USB interface.
 // To interpret the bytes of a USB packet, that was received from the host in usb_class.c, the protocol must be known.
-bool GLB_ProtoElmue = false;
+bool GLB_ProtoElmue = true;
 
 // ----- Class Instance
 buf_class  buf_inst[CHANNEL_COUNT] = {0};
@@ -115,11 +115,11 @@ void buf_process_host(uint8_t channel, buf_class* usb_buf)
         return; // nothing to be sent
 
     uint16_t len;
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
     {
-        // Using the optimized new ElmüSoft protocol reduces unnecessary USB overhead as it was sent by the legacy firmware.
+        // Using the optimized new Elmï¿½Soft protocol reduces unnecessary USB overhead as it was sent by the legacy firmware.
         // If a CAN frame has only 2 data bytes, send only 2 data bytes over USB.
-        // All ElmüSoft messages use the same header, no matter if CAN packet or an ASCII message.
+        // All Elmï¿½Soft messages use the same header, no matter if CAN packet or an ASCII message.
         // If ELM_DevFlagSendUsbBlobs is set --> send multiple fames in one blob to the host.
 
         kHostFrameObject* next_obj = buf_peek_host_frame_locked(&usb_buf->list_to_host);
@@ -211,9 +211,9 @@ void buf_process_can(uint8_t channel, buf_class* can_buf)
     can_send_packet(channel, &obj_to_can->header, obj_to_can->data);
     // At this point the Tx packet is in the CAN Tx FIFO, but it has not yet been transmitted to CAN bus.
 
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
     {
-        // The new ElmüSoft firmware sends an echo marker when the packet has REALLY been dispatched to CAN bus.
+        // The new Elmï¿½Soft firmware sends an echo marker when the packet has REALLY been dispatched to CAN bus.
         // This is when HAL_FDCAN_GetTxEvent() received the Tx event.
         // Here is nothing to be sent now because the packet is in the Tx FIFO and may wait there eternally until an ACK is received.
     }
@@ -283,7 +283,7 @@ bool buf_store_can_frame(uint8_t channel, uint8_t* can_frame)
     uint8_t  can_dlc = 0;
     uint8_t  marker  = 0;
     uint8_t* frame_data;
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
     {
         kTxFrameElmue *tx_frame = (kTxFrameElmue*)can_frame;
         if (tx_frame->header.msg_type != MSG_TxFrame)
@@ -363,7 +363,7 @@ bool buf_store_can_frame(uint8_t channel, uint8_t* can_frame)
 
         tx_header.FDFormat = FDCAN_FD_CAN;
 
-        // This was totally wrong in the orginal code (fixed by Elmüsoft)
+        // This was totally wrong in the orginal code (fixed by Elmï¿½soft)
         if (flags & FRM_BRS) // BRS bit is set if recessive
             tx_header.BitRateSwitch = FDCAN_BRS_ON;
     }
@@ -435,7 +435,7 @@ void buf_store_rx_packet_echo(uint8_t channel, FDCAN_RxHeaderTypeDef *rx_header,
 
     // ------------------------
 
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
     {
         uint8_t byte_count;
         if (can_id & CAN_ID_RTR)
@@ -524,7 +524,7 @@ void buf_store_error(uint8_t channel)
     memset(frame_gs, 0, sizeof(kHostFrameLegacy));
 
     uint8_t* frame_data;
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
         frame_data = frame_elmue->err_data;
     else // legacy Geschwister Schneider protocol
         frame_data = frame_gs->pack_classic.data;
@@ -595,7 +595,7 @@ void buf_store_error(uint8_t channel)
 	frame_data[6] = state->tx_err_count;
 	frame_data[7] = state->rx_err_count;
 
-    if (GLB_ProtoElmue) // new ElmüSoft protocol
+    if (GLB_ProtoElmue) // new Elmï¿½Soft protocol
     {
         frame_elmue->header.size     = sizeof(kErrorElmue);
         frame_elmue->header.msg_type = MSG_Error;
@@ -664,7 +664,7 @@ buf_class* buf_get_instance(uint8_t channel)
 buf_class* buf_get_inst_for_usb(uint8_t channel)
 {
     if (GLB_ProtoElmue)
-        return &buf_inst[channel]; // ElmüSoft -> send each CAN channel through it's own USB interface 0, 2 or 3
+        return &buf_inst[channel]; // Elmï¿½Soft -> send each CAN channel through it's own USB interface 0, 2 or 3
     else
         return &buf_inst[0];       // Legacy   -> send all CAN channels through USB interface 0
 }

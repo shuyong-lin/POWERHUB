@@ -302,10 +302,10 @@ void CandlelightDemo()
             }
 
             // pseudo random data
-            k_TxPackets[0].mu8_Data[0] ++;
             k_TxPackets[0].mu8_Data[1] = k_TxPackets[0].mu8_Data[0] * 3;
             k_TxPackets[0].mu8_Data[2] = k_TxPackets[0].mu8_Data[1] * 2;
             k_TxPackets[0].mu8_Data[3] = k_TxPackets[0].mu8_Data[2] * 51;
+            k_TxPackets[0].mu8_Data[0] ++;
             k_TxPackets[0].mu8_Data[4] = k_TxPackets[0].mu8_Data[3] * 11;
             k_TxPackets[0].mu8_Data[5] = k_TxPackets[0].mu8_Data[4] * 7;
             k_TxPackets[0].mu8_Data[6] = k_TxPackets[0].mu8_Data[5] * 25;

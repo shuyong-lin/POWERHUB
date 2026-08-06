@@ -17,8 +17,8 @@
 // If 3 Tx messages are in the Tx FIFO of the processor while 64 more Tx messages are in list_to_host, we have 67 messages waiting for an ACK.
 // If now another adapter is opened and acknowledges them all we are flooded with 67 Tx events to be sent to the host.
 // So the host buffer should be larger than the CAN buffer to avoid error APP_UsbInOverflow.
-#define CAN_QUEUE_SIZE      64
-#define HOST_QUEUE_SIZE     70
+#define CAN_QUEUE_SIZE      256
+#define HOST_QUEUE_SIZE     300
 
 // ----------------------------------------------------------------------------------------
 
@@ -152,8 +152,8 @@ typedef struct
     // The result was an adapter not sending anymore and even crashes when the buffer got full!
     // Nobody ever noticed that because of a complete lack of proper error handling.
     // The legacy firmware did not even set an error flag when a buffer overflow occurred.
-    uint8_t    to_host_buf  [MAX_BLOB_SIZE]; // stores USB IN  data during transmission (fixed by ElmüSoft)
-    uint8_t    from_host_buf[MAX_BLOB_SIZE]; // stores USB OUT data after reception     (fixed by ElmüSoft)   
+    uint8_t    to_host_buf  [MAX_BLOB_SIZE]; // stores USB IN  data during transmission (fixed by Elmï¿½Soft)
+    uint8_t    from_host_buf[MAX_BLOB_SIZE]; // stores USB OUT data after reception     (fixed by Elmï¿½Soft)   
     
 }  __attribute__ ((aligned (4))) buf_class;
 
