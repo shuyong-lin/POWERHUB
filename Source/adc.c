@@ -166,11 +166,14 @@ void adc_timer_100ms(uint32_t tick_now)
     if(Vbus < 12.0f)
     {
         // Handle low voltage condition
-        ws2815_set_pwr(true); // Turn off the power LED if voltage is below threshold
+        ws2815_set_pwr(0); // Turn blue the power LED if voltage is below threshold
     }
-    else
+    else if(Vbus > 30.0f)
     {
-      ws2815_set_pwr(false); // Turn on the power LED if voltage is above threshold
+      ws2815_set_pwr(1); // Turn red power LED if voltage is above threshold
+    }else
+    {
+      ws2815_set_pwr(2); // Turn green the power LED if voltage is within threshold
     }
   }
   

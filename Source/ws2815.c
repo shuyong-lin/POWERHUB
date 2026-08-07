@@ -114,8 +114,8 @@ void HAL_TIM_PWM_MspInit(TIM_HandleTypeDef* tim_pwmHandle)
     hdma_tim3_ch2.Init.MemInc = DMA_MINC_ENABLE;
     hdma_tim3_ch2.Init.PeriphDataAlignment = DMA_PDATAALIGN_HALFWORD;
     hdma_tim3_ch2.Init.MemDataAlignment = DMA_MDATAALIGN_HALFWORD;
-    hdma_tim3_ch2.Init.Mode = DMA_CIRCULAR;
-    hdma_tim3_ch2.Init.Priority = DMA_PRIORITY_HIGH;
+    hdma_tim3_ch2.Init.Mode = DMA_NORMAL;
+    hdma_tim3_ch2.Init.Priority = DMA_PRIORITY_LOW;
     if (HAL_DMA_Init(&hdma_tim3_ch2) != HAL_OK)
     {
       __disable_irq();
@@ -232,8 +232,8 @@ void ws2815_init(void)
     __HAL_RCC_DMAMUX1_CLK_ENABLE();
     __HAL_RCC_DMA1_CLK_ENABLE(); //  使能DMA1控制器的时钟
 
-    HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 0, 0);
-    HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
+    // HAL_NVIC_SetPriority(DMA1_Channel1_IRQn, 1, 0);
+    // HAL_NVIC_EnableIRQ(DMA1_Channel1_IRQn);
 
     // TIM_ClockConfigTypeDef sClockSourceConfig = {0};
     TIM_MasterConfigTypeDef sMasterConfig = {0};
@@ -265,8 +265,8 @@ void ws2815_init(void)
 
     if(HAL_TIM_PWM_Init(&ws2815_tim) != HAL_OK)
     {
-        __disable_irq();
         while (1)
+        __disable_irq();
         {
         }
     }
@@ -338,9 +338,26 @@ void ws2815_set_tx(uint8_t channel, bool status)
     
 }
 
-void ws2815_set_pwr(bool status)
+void ws2815_set_pwr(uint8_t status)
 {
-    ws2815_inst[0].red = status ? 0x0F : 0x00;
+    if(0 == status)//under voltage
+    {
+        ws2815_inst[0].red = 0x00;
+        ws2815_inst[0].green = 0x00;
+        ws2815_inst[0].blue = 0x0F;
+    }
+    else if(1 == status)
+    {
+        ws2815_inst[0].red = 0x0F;
+        ws2815_inst[0].green = 0x00;
+        ws2815_inst[0].blue = 0x00;
+    }
+    else if(2 == status)
+    {
+        ws2815_inst[0].red = 0x00;
+        ws2815_inst[0].green = 0x0F;
+        ws2815_inst[0].blue = 0x00;
+    }
     ws2815_set_pixel(0);
     ws2815_update();
 }

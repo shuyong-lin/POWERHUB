@@ -367,7 +367,7 @@ static void USBD_GetDescriptor(USBD_SetupReqTypedef *req)
                     break;
 
                 case USBD_IDX_MFC_STR:     // USB Device Manufacrturer String
-                    pbuf = USBD_GetStringDescr("ElmueSoft (netcult.ch/elmue)", &len);
+                    pbuf = USBD_GetStringDescr("CoreMotion (https://coremotion.feishu.cn/wiki/IVguw2uv9iRSePkajjAcir09nvf)", &len);
                     break;
 
                 case USBD_IDX_PRODUCT_STR: // USB Device Product String

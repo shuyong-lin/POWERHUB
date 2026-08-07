@@ -151,33 +151,33 @@ typedef enum // sent as 8 bit
     // -------------------
     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
     
-#elif defined(CoreMotionDual)
+// #elif defined(CoreMotionDual)
 
-    // Oleksii puts a 8 MHz quartz on the dual channel board
-    // The board has 2 CAN connectors and creates 2 Candlelight USB interfaces.
-    #define CHANNEL_COUNT       2
-    // -------------------      Channel 1:               Channel 2:
-    #define CAN_INTERFACES      FDCAN1,                  FDCAN2
-    #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
-    #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
-    #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
-    // -------------------
-    #define LED_TX_PINS         GPIO_PIN_5,              GPIO_PIN_3 
-    #define LED_TX_PORTS        GPIOA,                   GPIOA
-    #define LED_RX_PINS         GPIO_PIN_6,              GPIO_PIN_4 
-    #define LED_RX_PORTS        GPIOA,                   GPIOA
-    // -------------------
-    #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
-    #define TERMINATOR_PORTS    GPIOB,                   GPIOB    
-    // ---------------------------------------------------------
-    #define LED_MODE            GPIO_MODE_OUTPUT_PP
-    #define LED_ON              GPIO_PIN_SET             // The LED's cathode is connected to ground
-    #define LED_OFF             GPIO_PIN_RESET
-    // -------------------
-    #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
-    // -------------------
-    #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
-#elif defined(PowerHubDual)
+//     // Oleksii puts a 8 MHz quartz on the dual channel board
+//     // The board has 2 CAN connectors and creates 2 Candlelight USB interfaces.
+//     #define CHANNEL_COUNT       2
+//     // -------------------      Channel 1:               Channel 2:
+//     #define CAN_INTERFACES      FDCAN1,                  FDCAN2
+//     #define CAN_PINS            GPIO_PIN_8 | GPIO_PIN_9, GPIO_PIN_5 | GPIO_PIN_6 // CANFD Tx, Rx pins
+//     #define CAN_PORTS           GPIOB,                   GPIOB                   // CANFD Port
+//     #define CAN_ALTERNATES      GPIO_AF9_FDCAN1,         GPIO_AF9_FDCAN2  // switch pin multiplexer to CAN module
+//     // -------------------
+//     #define LED_TX_PINS         GPIO_PIN_5,              GPIO_PIN_3 
+//     #define LED_TX_PORTS        GPIOA,                   GPIOA
+//     #define LED_RX_PINS         GPIO_PIN_6,              GPIO_PIN_4 
+//     #define LED_RX_PORTS        GPIOA,                   GPIOA
+//     // -------------------
+//     #define TERMINATOR_PINS     -1,                      -1  // termination resistor is switched by a manual jumper
+//     #define TERMINATOR_PORTS    GPIOB,                   GPIOB    
+//     // ---------------------------------------------------------
+//     #define LED_MODE            GPIO_MODE_OUTPUT_PP
+//     #define LED_ON              GPIO_PIN_SET             // The LED's cathode is connected to ground
+//     #define LED_OFF             GPIO_PIN_RESET
+//     // -------------------
+//     #define MAX_CAN_BAUDRATE    8 // CAN transceiver chip limits to 8 Mbaud
+//     // -------------------
+//     #define ALLOW_DISABLE_BOOT0 1 // allow disable pin BOOT0 (indispensable for correct operation)
+#elif defined(PWR_FDCAN_DUAL)
 
     // Oleksii puts a 8 MHz quartz on the dual channel board
     // The board has 2 CAN connectors and creates 2 Candlelight USB interfaces.
@@ -210,17 +210,17 @@ typedef enum // sent as 8 bit
     #define LED_PWR_PIN         GPIO_PIN_2 // red
     #define LED_PWR_PORT        GPIOA
 
-    #define LED_WS2815_ENABLE  0
+    #define LED_WS2815_ENABLE  1
     #define LED_WS2815_NUMBER  CHANNEL_COUNT
-    // #define LED_WS2815_MODE    0
-    // #define LED_WS2815_PIN     GPIO_PIN_15
-    // #define LED_WS2815_PORT    GPIOC
-    #define LED_WS2815_MODE    1
+    #define LED_WS2815_MODE    0
     #define LED_WS2815_PIN     GPIO_PIN_7
     #define LED_WS2815_PORT    GPIOA
-    #define LED_WS2815_TIM     TIM3
-    #define LED_WS2815_CHANNEL TIM_CHANNEL_2
-    #define LED_WS2815_AF      GPIO_AF2_TIM3
+    // #define LED_WS2815_MODE    1
+    // #define LED_WS2815_PIN     GPIO_PIN_7
+    // #define LED_WS2815_PORT    GPIOA
+    // #define LED_WS2815_TIM     TIM3
+    // #define LED_WS2815_CHANNEL TIM_CHANNEL_2
+    // #define LED_WS2815_AF      GPIO_AF2_TIM3
 
 #elif defined(WeActStudioV1)
 

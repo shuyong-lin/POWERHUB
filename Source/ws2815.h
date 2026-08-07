@@ -22,12 +22,12 @@ typedef struct
 void ws2815_init(void);
 void ws2815_set_rx(uint8_t channel, bool status);
 void ws2815_set_tx(uint8_t channel, bool status);
-void ws2815_set_pwr(bool status);
+void ws2815_set_pwr(uint8_t status);
 void ws2815_update(void);
 #else
 static inline void ws2815_init(void) {}
 static inline void ws2815_set_rx(uint8_t channel, bool status) { (void)channel; (void)status; }
 static inline void ws2815_set_tx(uint8_t channel, bool status) { (void)channel; (void)status; }
-static inline void ws2815_set_pwr(bool status) { (void)status; }
+static inline void ws2815_set_pwr(uint8_t status) { (void)status; }
 static inline void ws2815_update(void) {}
 #endif

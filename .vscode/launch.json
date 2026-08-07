@@ -12,7 +12,7 @@
             "armToolchainPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin",
             "gdbPath": "C:\\Program Files (x86)\\GNU Arm Embedded Toolchain\\10 2021.10\\bin\\arm-none-eabi-gdb.exe",
             "interface": "swd",
-            "executable": ".\\Build_STM32G474_Candlelight_PowerHubDual\\STM32G474_Candlelight2.5_PowerHubDual_0x260618.elf",
+            "executable": ".\\Build_STM32G474_Candlelight_PWR_FDCAN_DUAL\\STM32G474_Candlelight2.5_PWR_FDCAN_DUAL_0x260807.elf",
             "svdFile": ".\\STM32\\CMSIS\\STM32G474xx.svd",
             "servertype": "openocd",
             // "serverArgs": [
